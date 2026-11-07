@@ -131,14 +131,14 @@ onBeforeUnmount(() => {
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--gap);
   margin-bottom: var(--gap);
 }
 
 .server-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: start;
   gap: var(--gap);
 }
@@ -258,7 +258,17 @@ onBeforeUnmount(() => {
   line-height: 1.6;
 }
 
+@media (max-width: 1279px) {
+  .server-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 1023px) {
+  .server-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .summary-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

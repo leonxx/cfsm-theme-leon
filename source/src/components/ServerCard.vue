@@ -456,28 +456,31 @@ function pctText(value, fallback = '—') {
 }
 
 .net-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) repeat(2, minmax(5ch, auto));
+  display: flex;
+  flex-wrap: wrap;
   min-width: 0;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 6px 4px;
   margin-top: 12px;
   padding-top: 10px;
   border-top: 1px solid var(--line);
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .net-item {
   display: inline-flex;
+  flex: 0 0 auto;
   min-width: 0;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   color: var(--text);
   white-space: nowrap;
 }
 
 .net-item :deep(svg) {
+  width: 10px;
+  height: 10px;
   flex: 0 0 auto;
   color: var(--muted);
 }
@@ -527,16 +530,9 @@ function pctText(value, fallback = '—') {
   font-weight: 600;
 }
 
-@container (max-width: 460px) {
+@container (min-width: 380px) {
   .net-row {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    row-gap: 8px;
-  }
-}
-
-@container (max-width: 280px) {
-  .net-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    font-size: 12px;
   }
 }
 

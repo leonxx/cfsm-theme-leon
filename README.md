@@ -16,7 +16,7 @@
 > 封面为设计示意图，实际界面以运行效果为准。
 
 **一句话安装**：后台 → 设置 → 「第三方主题地址」填
-`https://github.com/famintt/cfsm-theme-aurora/tree/main` → 保存 → 打开首页。
+`https://github.com/leonxx/cfsm-theme-leon/tree/main` → 保存 → 打开首页。
 
 ---
 
@@ -77,7 +77,7 @@ Aurora 就是那个「可被替换的前台」。启用后：
 - 在线状态 + 已在线时长（离线时显示「离线 N 分钟/小时/天」）；
 - 到期时间徽标（后台开启「显示到期时间」时）；无到期时间显示 `∞`；
 - 四个进度条：**CPU**（含核心数）、**内存**、**硬盘**、**流量**（后台开启「显示流量」时，无限流量显示 `x / ∞`）；
-- 网络行：实时 `↓ / ↑` 速率 + 累计 `↓ / ↑` 流量 + `T:TCP连接数` / `U:UDP连接数`，宽屏六项同排，窄屏自动换行；
+- 网络行：实时 `↓ / ↑` 速率 + 累计 `↓ / ↑` 流量 + `T:TCP连接数` / `U:UDP连接数`，紧凑排列六项，空间不足时自动换行；
 - 三网延迟行：电信 / 联通 / 移动（名称可在后台自定义），显示如 `100ms（5.1%）`，丢包率保留一位小数；后台开启「显示三网延迟」时才展示。
 
 **外观菜单（右上角调色板图标）**
@@ -165,7 +165,7 @@ Aurora 就是那个「可被替换的前台」。启用后：
 
 ```
 ① 复制主题地址
-   https://github.com/famintt/cfsm-theme-aurora/tree/main
+   https://github.com/leonxx/cfsm-theme-leon/tree/main
         ↓
 ② 后台 → 设置 → 第三方主题地址 → 粘贴 → 保存
         ↓
@@ -185,10 +185,10 @@ https://github.com/<用户名>/<仓库名>/tree/<分支或提交>[/子目录]
 本主题对应地址：
 
 ```
-https://github.com/famintt/cfsm-theme-aurora/tree/main
+https://github.com/leonxx/cfsm-theme-leon/tree/main
 ```
 
-> ⚠️ **不要**填 `https://github.com/famintt/cfsm-theme-aurora`（缺少 `/tree/main`）。
+> ⚠️ **不要**填 `https://github.com/leonxx/cfsm-theme-leon`（缺少 `/tree/main`）。
 > 面板对地址做的是严格白名单校验：必须 `https://`、域名必须正好是 `github.com`、
 > 路径里必须有 `tree` 段、且不能带 `?`、`#`、用户名密码等。
 > 校验不通过时**不会报错，而是把地址静默清空** —— 表现为「保存了但主题没变」。
@@ -196,7 +196,7 @@ https://github.com/famintt/cfsm-theme-aurora/tree/main
 想锁定版本、不跟着仓库更新走，就把 `main` 换成 **40 位提交哈希**：
 
 ```
-https://github.com/famintt/cfsm-theme-aurora/tree/0123456789abcdef0123456789abcdef01234567
+https://github.com/leonxx/cfsm-theme-leon/tree/0123456789abcdef0123456789abcdef01234567
 ```
 
 （哈希请到仓库的 Commits 页面复制，替换上面这串示例。）
@@ -213,7 +213,7 @@ https://github.com/famintt/cfsm-theme-aurora/tree/0123456789abcdef0123456789abcd
 
 - 地址写入 D1 的 `settings` 表 —— 具体是 `site_options` 这行里的 `theme_url` 字段；
 - 前台请求 `/` 时，Worker 改为拉取
-  `https://raw.githubusercontent.com/famintt/cfsm-theme-aurora/main/index.html`；
+  `https://raw.githubusercontent.com/leonxx/cfsm-theme-leon/main/index.html`；
 - HTML 里的 `assets/...` 引用会被自动改写成 `/assets/...`，由**你自己的 Worker** 代理回源。
 
 ### 第 3 步：验证
@@ -239,7 +239,7 @@ https://github.com/famintt/cfsm-theme-aurora/tree/0123456789abcdef0123456789abcd
 不想让访客看到半成品，用**预览模式** —— 直接在首页地址后加 `?theme_url=`：
 
 ```
-https://你的Worker域名/?theme_url=https://github.com/famintt/cfsm-theme-aurora/tree/main
+https://你的Worker域名/?theme_url=https://github.com/leonxx/cfsm-theme-leon/tree/main
 ```
 
 带参数访问时，Worker 会：
@@ -299,7 +299,7 @@ sequenceDiagram
     participant W as 你的 Worker
     participant G as raw.githubusercontent.com
     B->>W: GET / （带或不带预览 Cookie）
-    W->>G: GET /famintt/cfsm-theme-aurora/main/index.html
+    W->>G: GET /leonxx/cfsm-theme-leon/main/index.html
     G-->>W: index.html
     W->>W: 改写 assets 引用 + 注入标题/图标/背景/CSP
     W-->>B: 处理后的 HTML
@@ -358,7 +358,7 @@ sequenceDiagram
 <details>
 <summary><b>2. 502 / 提示「Theme index.html is unavailable」</b></summary>
 
-Worker 拉不到 `https://raw.githubusercontent.com/famintt/cfsm-theme-aurora/main/index.html`。常见原因：
+Worker 拉不到 `https://raw.githubusercontent.com/leonxx/cfsm-theme-leon/main/index.html`。常见原因：
 
 - 分支名写错（写成了 `master` 之类）；
 - 仓库被设为私有（私有仓库无法被反代）；
@@ -516,7 +516,7 @@ Copy-Item dist\index.html ..\index.html -Force
 - **主题色**：`source/src/styles/main.css` 里 `html[data-accent="aurora|emerald|sakura|amber"]` 两组规则（浅色 / 深色各一套），改 `--accent` 与 `--accent-2` 即可；要加第五套，还要在 `stores/monitor.js` 的 `ACCENTS` 和 `utils/i18n.js` 里补上词条；
 - **基础配色**：同一文件顶部的 `--bg` / `--surface` / `--text` 变量；
 - **密度**：`html[data-density="compact"]` 那组变量，以及 `.node-card` / `.summary-tile` / `.table-shell` 的内边距；
-- **卡片列数**：`Dashboard.vue` 里 `.server-grid` 的 `grid-template-columns`（按可用宽度自动排列，卡片目标最小宽度 500px）；
+- **卡片列数**：`Dashboard.vue` 里 `.server-grid` 的 `grid-template-columns`（默认 4 列，随屏幕宽度降为 3 / 2 / 1 列）；
 - **文案**：`source/src/utils/i18n.js`，中英两份；
 - **首页四块汇总**：`components/SummaryHero.vue`；
 - **外观菜单**：`components/ThemeMenu.vue`（由 `AppHeader.vue` 挂载）；
