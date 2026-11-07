@@ -496,13 +496,15 @@ function pctText(value, fallback = '—') {
 .ping-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 4px;
   margin-top: 10px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .ping-icon {
+  width: 10px;
+  height: 10px;
   flex: 0 0 auto;
   color: var(--muted);
 }
@@ -514,11 +516,11 @@ function pctText(value, fallback = '—') {
   flex: 1;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 4px;
 }
 
 .ping-item {
-  overflow-wrap: anywhere;
+  white-space: nowrap;
 }
 
 .ping-item b {
