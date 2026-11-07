@@ -372,7 +372,7 @@ export function latencyState(value) {
     return value === null ? 'timeout' : 'off'
   }
   const number = Number(value)
-  if (!Number.isFinite(number) || number < 0 || number === 0) return 'off'
+  if (!Number.isFinite(number) || number < 0) return 'off'
   return 'ok'
 }
 

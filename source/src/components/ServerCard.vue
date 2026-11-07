@@ -6,6 +6,7 @@ import { locale, t } from '../utils/i18n'
 import {
   expireInfo,
   formatBytes,
+  formatNumber,
   formatSpeed,
   isServerOnline,
   latencyRoutes,
@@ -129,13 +130,22 @@ const pings = computed(() => {
     const route = routes.find((item) => item.key === key)
     const state = route?.state || 'off'
     const value = Number(route?.value)
+    const loss = props.server[route.loss]
+    const lossText = loss === null
+      ? t('timeout')
+      : loss !== false && loss !== undefined && loss !== '' && Number.isFinite(Number(loss))
+        ? `${Number(loss).toFixed(1)}%`
+        : ''
+    const latencyText = state === 'ok' && Number.isFinite(value)
+      ? `${value}ms`
+      : state === 'timeout' ? t('timeout') : '—'
     return {
       key,
       name: names[key],
       state,
-      text: state === 'ok' && Number.isFinite(value) ? `${value}ms` : '—'
+      text: `${latencyText}${lossText ? `（${lossText}）` : ''}`
     }
-  })
+  }).filter((item) => item.state !== 'off')
 })
 
 const showPings = computed(() => Boolean(sys.value.show_three_net_details)
@@ -230,6 +240,8 @@ function pctText(value, fallback = '—') {
         <AppIcon name="arrowUp" :size="12" />
         <span class="tnum">{{ formatBytes(server.net_tx) }}</span>
       </span>
+      <span class="net-item tnum" :title="t('tcp')">T:{{ formatNumber(server.tcp_conn ?? 0) }}</span>
+      <span class="net-item tnum" :title="t('udp')">U:{{ formatNumber(server.udp_conn ?? 0) }}</span>
     </div>
 
     <div v-if="showPings" class="ping-row">
@@ -245,6 +257,7 @@ function pctText(value, fallback = '—') {
 
 <style scoped>
 .node-card {
+  container-type: inline-size;
   display: flex;
   min-width: 0;
   flex-direction: column;
@@ -443,11 +456,12 @@ function pctText(value, fallback = '—') {
 }
 
 .net-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) repeat(2, minmax(5ch, auto));
   min-width: 0;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 6px;
   margin-top: 12px;
   padding-top: 10px;
   border-top: 1px solid var(--line);
@@ -469,8 +483,7 @@ function pctText(value, fallback = '—') {
 }
 
 .net-item span {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
 }
 
 .net-total {
@@ -493,6 +506,8 @@ function pctText(value, fallback = '—') {
 
 .ping-list {
   display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
   flex: 1;
   align-items: center;
   justify-content: space-between;
@@ -500,7 +515,7 @@ function pctText(value, fallback = '—') {
 }
 
 .ping-item {
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .ping-item b {
@@ -510,6 +525,19 @@ function pctText(value, fallback = '—') {
 .ping-item .is-empty {
   color: var(--bad);
   font-weight: 600;
+}
+
+@container (max-width: 460px) {
+  .net-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 8px;
+  }
+}
+
+@container (max-width: 280px) {
+  .net-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 380px) {

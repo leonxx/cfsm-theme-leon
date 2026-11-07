@@ -77,8 +77,8 @@ Aurora 就是那个「可被替换的前台」。启用后：
 - 在线状态 + 已在线时长（离线时显示「离线 N 分钟/小时/天」）；
 - 到期时间徽标（后台开启「显示到期时间」时）；无到期时间显示 `∞`；
 - 四个进度条：**CPU**（含核心数）、**内存**、**硬盘**、**流量**（后台开启「显示流量」时，无限流量显示 `x / ∞`）；
-- 网络行：实时 `↓ / ↑` 速率 + 累计 `↓ / ↑` 流量；
-- 三网延迟行：电信 / 联通 / 移动（名称可在后台自定义），后台开启「显示三网延迟」时才展示。
+- 网络行：实时 `↓ / ↑` 速率 + 累计 `↓ / ↑` 流量 + `T:TCP连接数` / `U:UDP连接数`，宽屏六项同排，窄屏自动换行；
+- 三网延迟行：电信 / 联通 / 移动（名称可在后台自定义），显示如 `100ms（5.1%）`，丢包率保留一位小数；后台开启「显示三网延迟」时才展示。
 
 **外观菜单（右上角调色板图标）**
 
@@ -516,7 +516,7 @@ Copy-Item dist\index.html ..\index.html -Force
 - **主题色**：`source/src/styles/main.css` 里 `html[data-accent="aurora|emerald|sakura|amber"]` 两组规则（浅色 / 深色各一套），改 `--accent` 与 `--accent-2` 即可；要加第五套，还要在 `stores/monitor.js` 的 `ACCENTS` 和 `utils/i18n.js` 里补上词条；
 - **基础配色**：同一文件顶部的 `--bg` / `--surface` / `--text` 变量；
 - **密度**：`html[data-density="compact"]` 那组变量，以及 `.node-card` / `.summary-tile` / `.table-shell` 的内边距；
-- **卡片列数**：`Dashboard.vue` 里 `.server-grid` 的 `grid-template-columns`（默认 4 列）；
+- **卡片列数**：`Dashboard.vue` 里 `.server-grid` 的 `grid-template-columns`（按可用宽度自动排列，卡片目标最小宽度 500px）；
 - **文案**：`source/src/utils/i18n.js`，中英两份；
 - **首页四块汇总**：`components/SummaryHero.vue`；
 - **外观菜单**：`components/ThemeMenu.vue`（由 `AppHeader.vue` 挂载）；
