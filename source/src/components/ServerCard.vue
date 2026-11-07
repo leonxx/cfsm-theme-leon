@@ -134,7 +134,7 @@ const pings = computed(() => {
     const lossText = loss === null
       ? t('timeout')
       : loss !== false && loss !== undefined && loss !== '' && Number.isFinite(Number(loss))
-        ? `${Number(loss).toFixed(1)}%`
+        ? `${Number(loss).toFixed(0)}%`
         : ''
     const latencyText = state === 'ok' && Number.isFinite(value)
       ? `${value}ms`
