@@ -245,7 +245,6 @@ function pctText(value, fallback = '—') {
     </div>
 
     <div v-if="showPings" class="ping-row">
-      <AppIcon name="bolt" :size="12" class="ping-icon" />
       <div class="ping-list">
         <span v-for="item in pings" :key="item.key" class="ping-item tnum">
           {{ item.name }} <b :class="{ 'is-empty': item.state !== 'ok' }">{{ item.text }}</b>
@@ -500,13 +499,6 @@ function pctText(value, fallback = '—') {
   margin-top: 10px;
   color: var(--muted);
   font-size: 10px;
-}
-
-.ping-icon {
-  width: 10px;
-  height: 10px;
-  flex: 0 0 auto;
-  color: var(--muted);
 }
 
 .ping-list {
