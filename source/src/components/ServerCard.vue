@@ -143,7 +143,7 @@ const pings = computed(() => {
       key,
       name: names[key],
       state,
-      text: `${latencyText}${lossText ? `（${lossText}）` : ''}`
+      text: `${latencyText}${state === 'ok' && lossText ? `（${lossText}）` : ''}`
     }
   }).filter((item) => item.state !== 'off')
 })
